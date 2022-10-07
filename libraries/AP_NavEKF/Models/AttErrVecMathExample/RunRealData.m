@@ -1,6 +1,7 @@
 %% Set initial conditions
 clear all;
-load('fltTest.mat');
+%% load('fltTest.mat');
+load("../testData/fltTest.mat");
 startDelayTime = 100; % number of seconds to delay filter start (used to simulate in-flight restart)
 dt = 1/50;
 indexLimit = length(IMU);
