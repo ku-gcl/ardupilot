@@ -586,6 +586,7 @@ bool AP_MotorsMatrix::setup_quad_matrix(motor_frame_type frame_type)
         add_motors(motors, ARRAY_SIZE(motors));
         break;
     }
+    // これがQUAD-X Frameの設定
     case MOTOR_FRAME_TYPE_X: {
         _frame_type_string = "X";
         static const AP_MotorsMatrix::MotorDef motors[] {

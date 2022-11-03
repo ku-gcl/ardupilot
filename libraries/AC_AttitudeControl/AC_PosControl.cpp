@@ -7,6 +7,7 @@
 
 extern const AP_HAL::HAL& hal;
 
+// タイプがplaneなら。Typeは、AP_Vehicle/AP_Vehicle_Type.hで定義
 #if APM_BUILD_TYPE(APM_BUILD_ArduPlane)
  // default gains for Plane
  # define POSCONTROL_POS_Z_P                    1.0f    // vertical position controller P gain default
@@ -48,6 +49,7 @@ extern const AP_HAL::HAL& hal;
  # define POSCONTROL_VEL_XY_FILT_HZ             5.0f    // horizontal velocity controller input filter
  # define POSCONTROL_VEL_XY_FILT_D_HZ           5.0f    // horizontal velocity controller input filter for D
 #else
+ // ここが、copterとかのゲインの定義
  // default gains for Copter / TradHeli
  # define POSCONTROL_POS_Z_P                    1.0f    // vertical position controller P gain default
  # define POSCONTROL_VEL_Z_P                    5.0f    // vertical velocity controller P gain default

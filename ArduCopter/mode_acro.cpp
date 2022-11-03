@@ -65,7 +65,8 @@ void ModeAcro::run()
         attitude_control->input_rate_bf_roll_pitch_yaw(target_roll, target_pitch, target_yaw);
     }
 
-    // output pilot's throttle without angle boost
+    // output pilot's throttle without angle boost  // angle boost=trueは高度を落とさないように制御しつつ、姿勢制御すること
+    // set_throttle_outでthrottle_in変数のメモリの値を書き換え、Copter.cppで400Hz(FAST_TASK)で実行されているmotors_output関数によって、いろいろ関数介して最終的にモーターに出力されてそう
     attitude_control->set_throttle_out(pilot_desired_throttle, false, copter.g.throttle_filt);
 }
 

@@ -778,7 +778,8 @@ def start_vehicle(binary, opts, stuff, spawns=None):
         run_in_terminal_window(cmd_name, cmd + c)
     os.chdir(old_dir)
 
-
+# comment
+# これがSITLを起動するときの関数みたいだな
 def start_mavproxy(opts, stuff):
     """Run mavproxy"""
     # FIXME: would be nice to e.g. "mavproxy.mavproxy(....).run"
@@ -791,6 +792,9 @@ def start_mavproxy(opts, stuff):
         cmd.append("-w")
         cmd.append("mavproxy.exe")
     else:
+        # SITLを起動するとこれが表示される
+        # SIM_VEHICLE: "mavproxy.py --out 127.0.0.1:14550 --out 127.0.0.1:14551 --master tcp:127.0.0.1:5760
+        # --sitl 127.0.0.1:5501 --map --console --cmd param fetch frame; param set FRAME 1;"
         cmd.append("mavproxy.py")
 
     if opts.mcast:
@@ -1552,6 +1556,8 @@ try:
         progress("Waiting for SITL to exit")
         wait_unlimited()
     else:
+        # comment
+        # ここで、mavproxyを起動している
         start_mavproxy(cmd_opts, frame_infos)
 except KeyboardInterrupt:
     progress("Keyboard Interrupt received ...")

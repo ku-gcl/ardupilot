@@ -372,6 +372,7 @@ class FakeMacOSXSpawn(object):
     to pause (and otherwise kill(1) SITL.  MacOSX using osascript to
     start/stop sitl
     '''
+
     def __init__(self):
         pass
 
@@ -385,6 +386,8 @@ class FakeMacOSXSpawn(object):
     def isalive(self):
         self.progress("FakeMacOSXSpawn: assuming process is alive")
         return True
+
+# これはPythonでのシミュレータ
 
 
 def start_SITL(binary,
@@ -702,9 +705,9 @@ def EarthRatesToBodyRates(dcm, earth_rates):
     from math import sin, cos
 
     (phi, theta, psi) = dcm.to_euler()
-    phiDot   = earth_rates.x
+    phiDot = earth_rates.x
     thetaDot = earth_rates.y
-    psiDot   = earth_rates.z
+    psiDot = earth_rates.z
 
     p = phiDot - psiDot * sin(theta)
     q = cos(phi) * thetaDot + sin(phi) * psiDot * cos(theta)
@@ -722,17 +725,17 @@ def BodyRatesToEarthRates(dcm, gyro):
     """
     from math import sin, cos, tan, fabs
 
-    p      = gyro.x
-    q      = gyro.y
-    r      = gyro.z
+    p = gyro.x
+    q = gyro.y
+    r = gyro.z
 
     (phi, theta, psi) = dcm.to_euler()
 
-    phiDot   = p + tan(theta) * (q * sin(phi) + r * cos(phi))
+    phiDot = p + tan(theta) * (q * sin(phi) + r * cos(phi))
     thetaDot = q * cos(phi) - r * sin(phi)
     if fabs(cos(theta)) < 1.0e-20:
         theta += 1.0e-10
-    psiDot   = (q * sin(phi) + r * cos(phi)) / cos(theta)
+    psiDot = (q * sin(phi) + r * cos(phi)) / cos(theta)
     return Vector3(phiDot, thetaDot, psiDot)
 
 
@@ -788,12 +791,13 @@ def gps_bearing(lat1, lon1, lat2, lon2):
 
 class Wind(object):
     """A wind generation object."""
+
     def __init__(self, windstring, cross_section=0.1):
         a = windstring.split(',')
         if len(a) != 3:
             raise RuntimeError("Expected wind in speed,direction,turbulance form, not %s" % windstring)
-        self.speed      = float(a[0])  # m/s
-        self.direction  = float(a[1])  # direction the wind is going in
+        self.speed = float(a[0])  # m/s
+        self.direction = float(a[1])  # direction the wind is going in
         self.turbulance = float(a[2])  # turbulance factor (standard deviation)
 
         # the cross-section of the aircraft to wind. This is multiplied by the

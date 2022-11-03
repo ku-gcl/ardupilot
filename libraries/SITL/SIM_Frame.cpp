@@ -16,6 +16,8 @@
   multicopter frame simulator class
 */
 
+// ここでsimulationのときのmixingを定義している
+
 #include "SIM_Frame.h"
 #include <AP_Motors/AP_Motors.h>
 #include <AP_Baro/AP_Baro.h>

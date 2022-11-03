@@ -161,6 +161,8 @@ void Copter::motors_output()
     // update output on any aux channels, for manual passthru
     SRV_Channels::output_ch_all();
 
+    // ここなんかログ書いてるな。
+    // interlockというのは、モーターの安全装置みたいな感じっぽい
     // update motors interlock state
     bool interlock = motors->armed() && !ap.in_arming_delay && (!ap.using_interlock || ap.motor_interlock_switch) && !SRV_Channels::get_emergency_stop();
     if (!motors->get_interlock() && interlock) {
@@ -175,6 +177,7 @@ void Copter::motors_output()
         // check if we are performing the motor test
         motor_test_output();
     } else {
+        // ここでモーターに信号を印加している
         // send output signals to motors
         flightmode->output_to_motors();
     }
