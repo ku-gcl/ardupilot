@@ -23,16 +23,6 @@ struct PACKED log_Control_Tuning {
 };
 
 
-// Write a control input
-void Copter::Log_Write_Test()
-{
-    struct log_Test pkt = {
-        LOG_PACKET_HEADER_INIT(LOG_TEST),
-        time_us : AP_HAL::micros64(),
-        a_value : 1234
-    };
-    logger.WriteBlock(&pkt, sizeof(pkt));
-}
 
 // Write a control tuning packet
 void Copter::Log_Write_Control_Tuning()
@@ -134,6 +124,26 @@ struct PACKED log_Data_UInt16t {
     uint8_t id;
     uint16_t data_value;
 };
+
+// Write Test
+struct PACKED log_Test
+{
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    float a_value;
+}
+
+// Write a control input
+void
+Copter::Log_Write_Test()
+{
+    struct log_Test pkt = {
+        LOG_PACKET_HEADER_INIT(LOG_TEST),
+        time_us : AP_HAL::micros64(),
+        a_value : 1234
+    };
+    logger.WriteBlock(&pkt, sizeof(pkt));
+}
 
 // Write an uint16_t data packet
 UNUSED_FUNCTION 
@@ -338,12 +348,6 @@ void Copter::Log_Write_Heli()
 }
 #endif
 
-// Write Test
-struct PACKED log_Test {
-    LOG_PACKET_HEADER;
-    uint64_t time_us;
-    float a_value;
-}
 
 // guided position target logging
 struct PACKED log_Guided_Position_Target
