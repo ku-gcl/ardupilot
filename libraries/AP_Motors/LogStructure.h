@@ -25,6 +25,6 @@ struct PACKED log_THRUST {
     int16_t compensation_gain;
 };
 
-#define LOG_STRUCTURE_FROM_MOTROS
-{LOG_MOT_MSG, sizeof(log_THRUST), 
- "THR", "QQhhhhh", "TimeUS,SampleUS,RollThr,PitchThr,YawThr,ThroThr,CompGain", "ss-----", "FF-----", true},
+#define LOG_STRUCTURE_FROM_MOTROS \
+    {LOG_MOT_MSG, sizeof(log_THRUST), \
+     "THR", "QQhhhhh", "TimeUS,SampleUS,RollThr,PitchThr,YawThr,ThroThr,CompGain", "ss-----", "FF-----", true},
