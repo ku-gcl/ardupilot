@@ -134,8 +134,7 @@ struct PACKED log_Test
 }
 
 // Write a control input
-void
-Copter::Log_Write_Test()
+void Copter::Log_Write_Test()
 {
     struct log_Test pkt = {
         LOG_PACKET_HEADER_INIT(LOG_TEST),
