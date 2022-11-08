@@ -131,7 +131,7 @@ struct PACKED log_Test
     LOG_PACKET_HEADER;
     uint64_t time_us;
     float a_value;
-}
+};
 
 // Write a control input
 void Copter::Log_Write_Test()
