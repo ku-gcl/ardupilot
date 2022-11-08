@@ -1287,7 +1287,7 @@ LOG_STRUCTURE_FROM_ESC_TELEM \
     { LOG_DSTL_MSG, sizeof(log_DSTL), \
       "DSTL", "QBfLLeccfeffff", "TimeUS,Stg,THdg,Lat,Lng,Alt,XT,Travel,L1I,Loiter,Des,P,I,D", "s??DUm--------", "F??000--------" , true }, \
 LOG_STRUCTURE_FROM_INERTIALSENSOR \
-LOG_STRUCTURE_MOTORS \    // added for my own log data
+LOG_STRUCTURE_MOTORS \
 LOG_STRUCTURE_FROM_DAL \
 LOG_STRUCTURE_FROM_NAVEKF2 \
 LOG_STRUCTURE_FROM_NAVEKF3 \
