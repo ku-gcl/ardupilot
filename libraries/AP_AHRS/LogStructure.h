@@ -10,6 +10,8 @@
     LOG_POS_MSG, \
     LOG_RATE_MSG
 
+// ここにいろいろ説明書いてある
+
 // @LoggerMessage: AHR2
 // @Description: Backup AHRS data
 // @Field: TimeUS: Time since system startup
