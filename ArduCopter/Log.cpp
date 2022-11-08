@@ -27,9 +27,9 @@ struct PACKED log_Control_Tuning {
 void Copter::Log_Write_Test()
 {
     struct log_Test pkt = {
-        LOG_PACKET_HEADER_INIT(LOG_TEST_MSG),
+        LOG_PACKET_HEADER_INIT(LOG_TEST),
         time_us : AP_HAL::micros64(),
-        a_values : 1234
+        a_value : 1234
     };
     logger.WriteBlock(&pkt, sizeof(pkt));
 }
