@@ -125,6 +125,7 @@ struct PACKED log_Data_UInt16t {
     uint16_t data_value;
 };
 
+// added 2022.11.08 customized log data
 // Write Test
 struct PACKED log_Test
 {
@@ -133,6 +134,7 @@ struct PACKED log_Test
     float a_value;
 };
 
+// added 2022.11.08 customized log data
 // Write a control input
 void Copter::Log_Write_Test()
 {
@@ -434,6 +436,7 @@ void Copter::Log_Write_Guided_Attitude_Target(ModeGuided::SubMode target_type, f
 const struct LogStructure Copter::log_structure[] = {
     LOG_COMMON_STRUCTURES,
 
+    // added 2022.11.08 customized log data
     // @LoggerMessage: TEST
     // @Description: Test code
     // @Field: TimeUS: Time since system startup
@@ -608,7 +611,7 @@ void Copter::log_init(void)
 
 #else // LOGGING_ENABLED
 
-void Copter::Log_Write_Test() {}
+void Copter::Log_Write_Test() {}                // added 2022.11.08 customized log data
 void Copter::Log_Write_Control_Tuning() {}
 void Copter::Log_Write_Attitude(void) {}
 void Copter::Log_Write_EKF_POS() {}
