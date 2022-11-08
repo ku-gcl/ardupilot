@@ -22,6 +22,18 @@ struct PACKED log_Control_Tuning {
     int16_t  climb_rate;
 };
 
+
+// Write a control input
+void Copter::Log_Write_Test()
+{
+    struct log_Test pkt = {
+        LOG_PACKET_HEADER_INIT(LOG_TEST_MSG),
+        time_us : AP_HAL::micros64(),
+        a_values : 1234
+    };
+    logger.WriteBlock(&pkt, sizeof(pkt));
+}
+
 // Write a control tuning packet
 void Copter::Log_Write_Control_Tuning()
 {
@@ -326,8 +338,16 @@ void Copter::Log_Write_Heli()
 }
 #endif
 
+// Write Test
+struct PACKED log_Test {
+    LOG_PACKET_HEADER;
+    uint64_t time_us;
+    float a_value;
+}
+
 // guided position target logging
-struct PACKED log_Guided_Position_Target {
+struct PACKED log_Guided_Position_Target
+{
     LOG_PACKET_HEADER;
     uint64_t time_us;
     uint8_t type;
@@ -410,78 +430,85 @@ void Copter::Log_Write_Guided_Attitude_Target(ModeGuided::SubMode target_type, f
 // units and "Format characters" for field type information
 const struct LogStructure Copter::log_structure[] = {
     LOG_COMMON_STRUCTURES,
-    
-// @LoggerMessage: PTUN
-// @Description: Parameter Tuning information
-// @URL: https://ardupilot.org/copter/docs/tuning.html#in-flight-tuning
-// @Field: TimeUS: Time since system startup
-// @Field: Param: Parameter being tuned
-// @Field: TunVal: Normalized value used inside tuning() function
-// @Field: TunMin: Tuning minimum limit
-// @Field: TunMax: Tuning maximum limit
 
-    { LOG_PARAMTUNE_MSG, sizeof(log_ParameterTuning),
-      "PTUN", "QBfff",         "TimeUS,Param,TunVal,TunMin,TunMax", "s----", "F----" },
+    // @LoggerMessage: TEST
+    // @Description: Test code
+    // @Field: TimeUS: Time since system startup
+    // @Field: A_value: A float value
+    {LOG_TEST, sizeof(log_Test),
+    "TEST", "Qf", "TimeUS,Value", "s-", "F-"},
 
-// @LoggerMessage: CTUN
-// @Description: Control Tuning information
-// @Field: TimeUS: Time since system startup
-// @Field: ThI: throttle input
-// @Field: ABst: angle boost
-// @Field: ThO: throttle output
-// @Field: ThH: calculated hover throttle
-// @Field: DAlt: desired altitude
-// @Field: Alt: achieved altitude
-// @Field: BAlt: barometric altitude
-// @Field: DSAlt: desired rangefinder altitude
-// @Field: SAlt: achieved rangefinder altitude
-// @Field: TAlt: terrain altitude
-// @Field: DCRt: desired climb rate
-// @Field: CRt: climb rate
+    // @LoggerMessage: PTUN
+    // @Description: Parameter Tuning information
+    // @URL: https://ardupilot.org/copter/docs/tuning.html#in-flight-tuning
+    // @Field: TimeUS: Time since system startup
+    // @Field: Param: Parameter being tuned
+    // @Field: TunVal: Normalized value used inside tuning() function
+    // @Field: TunMin: Tuning minimum limit
+    // @Field: TunMax: Tuning maximum limit
 
-// @LoggerMessage: D16
-// @Description: Generic 16-bit-signed-integer storage
-// @Field: TimeUS: Time since system startup
-// @Field: Id: Data type identifier
-// @Field: Value: Value
+    {LOG_PARAMTUNE_MSG, sizeof(log_ParameterTuning),
+     "PTUN", "QBfff", "TimeUS,Param,TunVal,TunMin,TunMax", "s----", "F----"},
 
-// @LoggerMessage: DU16
-// @Description: Generic 16-bit-unsigned-integer storage
-// @Field: TimeUS: Time since system startup
-// @Field: Id: Data type identifier
-// @Field: Value: Value
+    // @LoggerMessage: CTUN
+    // @Description: Control Tuning information
+    // @Field: TimeUS: Time since system startup
+    // @Field: ThI: throttle input
+    // @Field: ABst: angle boost
+    // @Field: ThO: throttle output
+    // @Field: ThH: calculated hover throttle
+    // @Field: DAlt: desired altitude
+    // @Field: Alt: achieved altitude
+    // @Field: BAlt: barometric altitude
+    // @Field: DSAlt: desired rangefinder altitude
+    // @Field: SAlt: achieved rangefinder altitude
+    // @Field: TAlt: terrain altitude
+    // @Field: DCRt: desired climb rate
+    // @Field: CRt: climb rate
 
-// @LoggerMessage: D32
-// @Description: Generic 32-bit-signed-integer storage
-// @Field: TimeUS: Time since system startup
-// @Field: Id: Data type identifier
-// @Field: Value: Value
+    // @LoggerMessage: D16
+    // @Description: Generic 16-bit-signed-integer storage
+    // @Field: TimeUS: Time since system startup
+    // @Field: Id: Data type identifier
+    // @Field: Value: Value
 
-// @LoggerMessage: DFLT
-// @Description: Generic float storage
-// @Field: TimeUS: Time since system startup
-// @Field: Id: Data type identifier
-// @Field: Value: Value
+    // @LoggerMessage: DU16
+    // @Description: Generic 16-bit-unsigned-integer storage
+    // @Field: TimeUS: Time since system startup
+    // @Field: Id: Data type identifier
+    // @Field: Value: Value
 
-// @LoggerMessage: DU32
-// @Description: Generic 32-bit-unsigned-integer storage
-// @Field: TimeUS: Time since system startup
-// @Field: Id: Data type identifier
-// @Field: Value: Value
+    // @LoggerMessage: D32
+    // @Description: Generic 32-bit-signed-integer storage
+    // @Field: TimeUS: Time since system startup
+    // @Field: Id: Data type identifier
+    // @Field: Value: Value
 
-    { LOG_CONTROL_TUNING_MSG, sizeof(log_Control_Tuning),
-      "CTUN", "Qffffffefffhh", "TimeUS,ThI,ABst,ThO,ThH,DAlt,Alt,BAlt,DSAlt,SAlt,TAlt,DCRt,CRt", "s----mmmmmmnn", "F----00B000BB" , true },
-    { LOG_DATA_INT16_MSG, sizeof(log_Data_Int16t),         
-      "D16",   "QBh",         "TimeUS,Id,Value", "s--", "F--" },
-    { LOG_DATA_UINT16_MSG, sizeof(log_Data_UInt16t),         
-      "DU16",  "QBH",         "TimeUS,Id,Value", "s--", "F--" },
-    { LOG_DATA_INT32_MSG, sizeof(log_Data_Int32t),         
-      "D32",   "QBi",         "TimeUS,Id,Value", "s--", "F--" },
-    { LOG_DATA_UINT32_MSG, sizeof(log_Data_UInt32t),         
-      "DU32",  "QBI",         "TimeUS,Id,Value", "s--", "F--" },
-    { LOG_DATA_FLOAT_MSG, sizeof(log_Data_Float),         
-      "DFLT",  "QBf",         "TimeUS,Id,Value", "s--", "F--" },
-    
+    // @LoggerMessage: DFLT
+    // @Description: Generic float storage
+    // @Field: TimeUS: Time since system startup
+    // @Field: Id: Data type identifier
+    // @Field: Value: Value
+
+    // @LoggerMessage: DU32
+    // @Description: Generic 32-bit-unsigned-integer storage
+    // @Field: TimeUS: Time since system startup
+    // @Field: Id: Data type identifier
+    // @Field: Value: Value
+
+    {LOG_CONTROL_TUNING_MSG, sizeof(log_Control_Tuning),
+     "CTUN", "Qffffffefffhh", "TimeUS,ThI,ABst,ThO,ThH,DAlt,Alt,BAlt,DSAlt,SAlt,TAlt,DCRt,CRt", "s----mmmmmmnn", "F----00B000BB", true},
+    {LOG_DATA_INT16_MSG, sizeof(log_Data_Int16t),
+     "D16", "QBh", "TimeUS,Id,Value", "s--", "F--"},
+    {LOG_DATA_UINT16_MSG, sizeof(log_Data_UInt16t),
+     "DU16", "QBH", "TimeUS,Id,Value", "s--", "F--"},
+    {LOG_DATA_INT32_MSG, sizeof(log_Data_Int32t),
+     "D32", "QBi", "TimeUS,Id,Value", "s--", "F--"},
+    {LOG_DATA_UINT32_MSG, sizeof(log_Data_UInt32t),
+     "DU32", "QBI", "TimeUS,Id,Value", "s--", "F--"},
+    {LOG_DATA_FLOAT_MSG, sizeof(log_Data_Float),
+     "DFLT", "QBf", "TimeUS,Id,Value", "s--", "F--"},
+
 // @LoggerMessage: HELI
 // @Description: Helicopter related messages 
 // @Field: TimeUS: Time since system startup
@@ -490,74 +517,74 @@ const struct LogStructure Copter::log_structure[] = {
 // @Field: Gov: Governor Output
 // @Field: Throt: Throttle output
 #if FRAME_CONFIG == HELI_FRAME
-    { LOG_HELI_MSG, sizeof(log_Heli),
-      "HELI",  "Qffff",        "TimeUS,DRRPM,ERRPM,Gov,Throt", "s----", "F----" , true },
+    {LOG_HELI_MSG, sizeof(log_Heli),
+     "HELI", "Qffff", "TimeUS,DRRPM,ERRPM,Gov,Throt", "s----", "F----", true},
 #endif
 
-// @LoggerMessage: SIDD
-// @Description: System ID data
-// @Field: TimeUS: Time since system startup
-// @Field: Time: Time reference for waveform
-// @Field: Targ: Current waveform sample
-// @Field: F: Instantaneous waveform frequency
-// @Field: Gx: Delta angle, X-Axis
-// @Field: Gy: Delta angle, Y-Axis
-// @Field: Gz: Delta angle, Z-Axis
-// @Field: Ax: Delta velocity, X-Axis
-// @Field: Ay: Delta velocity, Y-Axis
-// @Field: Az: Delta velocity, Z-Axis
+    // @LoggerMessage: SIDD
+    // @Description: System ID data
+    // @Field: TimeUS: Time since system startup
+    // @Field: Time: Time reference for waveform
+    // @Field: Targ: Current waveform sample
+    // @Field: F: Instantaneous waveform frequency
+    // @Field: Gx: Delta angle, X-Axis
+    // @Field: Gy: Delta angle, Y-Axis
+    // @Field: Gz: Delta angle, Z-Axis
+    // @Field: Ax: Delta velocity, X-Axis
+    // @Field: Ay: Delta velocity, Y-Axis
+    // @Field: Az: Delta velocity, Z-Axis
 
-    { LOG_SYSIDD_MSG, sizeof(log_SysIdD),
-      "SIDD", "Qfffffffff",  "TimeUS,Time,Targ,F,Gx,Gy,Gz,Ax,Ay,Az", "ss-zkkkooo", "F---------" , true },
+    {LOG_SYSIDD_MSG, sizeof(log_SysIdD),
+     "SIDD", "Qfffffffff", "TimeUS,Time,Targ,F,Gx,Gy,Gz,Ax,Ay,Az", "ss-zkkkooo", "F---------", true},
 
-// @LoggerMessage: SIDS
-// @Description: System ID settings
-// @Field: TimeUS: Time since system startup
-// @Field: Ax: The axis which is being excited
-// @Field: Mag: Magnitude of the chirp waveform
-// @Field: FSt: Frequency at the start of chirp
-// @Field: FSp: Frequency at the end of chirp
-// @Field: TFin: Time to reach maximum amplitude of chirp
-// @Field: TC: Time at constant frequency before chirp starts
-// @Field: TR: Time taken to complete chirp waveform
-// @Field: TFout: Time to reach zero amplitude after chirp finishes
+    // @LoggerMessage: SIDS
+    // @Description: System ID settings
+    // @Field: TimeUS: Time since system startup
+    // @Field: Ax: The axis which is being excited
+    // @Field: Mag: Magnitude of the chirp waveform
+    // @Field: FSt: Frequency at the start of chirp
+    // @Field: FSp: Frequency at the end of chirp
+    // @Field: TFin: Time to reach maximum amplitude of chirp
+    // @Field: TC: Time at constant frequency before chirp starts
+    // @Field: TR: Time taken to complete chirp waveform
+    // @Field: TFout: Time to reach zero amplitude after chirp finishes
 
-    { LOG_SYSIDS_MSG, sizeof(log_SysIdS),
-      "SIDS", "QBfffffff",  "TimeUS,Ax,Mag,FSt,FSp,TFin,TC,TR,TFout", "s--ssssss", "F--------" , true },
+    {LOG_SYSIDS_MSG, sizeof(log_SysIdS),
+     "SIDS", "QBfffffff", "TimeUS,Ax,Mag,FSt,FSp,TFin,TC,TR,TFout", "s--ssssss", "F--------", true},
 
-// @LoggerMessage: GUIP
-// @Description: Guided mode position target information
-// @Field: TimeUS: Time since system startup
-// @Field: Type: Type of guided mode
-// @Field: pX: Target position, X-Axis
-// @Field: pY: Target position, Y-Axis
-// @Field: pZ: Target position, Z-Axis
-// @Field: Terrain: Target position, Z-Axis is alt above terrain
-// @Field: vX: Target velocity, X-Axis
-// @Field: vY: Target velocity, Y-Axis
-// @Field: vZ: Target velocity, Z-Axis
-// @Field: aX: Target acceleration, X-Axis
-// @Field: aY: Target acceleration, Y-Axis
-// @Field: aZ: Target acceleration, Z-Axis
+    // @LoggerMessage: GUIP
+    // @Description: Guided mode position target information
+    // @Field: TimeUS: Time since system startup
+    // @Field: Type: Type of guided mode
+    // @Field: pX: Target position, X-Axis
+    // @Field: pY: Target position, Y-Axis
+    // @Field: pZ: Target position, Z-Axis
+    // @Field: Terrain: Target position, Z-Axis is alt above terrain
+    // @Field: vX: Target velocity, X-Axis
+    // @Field: vY: Target velocity, Y-Axis
+    // @Field: vZ: Target velocity, Z-Axis
+    // @Field: aX: Target acceleration, X-Axis
+    // @Field: aY: Target acceleration, Y-Axis
+    // @Field: aZ: Target acceleration, Z-Axis
 
-    { LOG_GUIDED_POSITION_TARGET_MSG, sizeof(log_Guided_Position_Target),
-      "GUIP",  "QBfffbffffff",    "TimeUS,Type,pX,pY,pZ,Terrain,vX,vY,vZ,aX,aY,aZ", "s-mmm-nnnooo", "F-BBB-BBBBBB" , true },
+    {LOG_GUIDED_POSITION_TARGET_MSG, sizeof(log_Guided_Position_Target),
+     "GUIP", "QBfffbffffff", "TimeUS,Type,pX,pY,pZ,Terrain,vX,vY,vZ,aX,aY,aZ", "s-mmm-nnnooo", "F-BBB-BBBBBB", true},
 
-// @LoggerMessage: GUIA
-// @Description: Guided mode attitude target information
-// @Field: TimeUS: Time since system startup
-// @Field: Type: Type of guided mode
-// @Field: Roll: Target attitude, Roll
-// @Field: Pitch: Target attitude, Pitch
-// @Field: Yaw: Target attitude, Yaw
-// @Field: RollRt: Roll rate
-// @Field: PitchRt: Pitch rate
-// @Field: YawRt: Yaw rate
-// @Field: Thrust: Thrust 
-// @Field: ClimbRt: Climb rate
+    // @LoggerMessage: GUIA
+    // @Description: Guided mode attitude target information
+    // @Field: TimeUS: Time since system startup
+    // @Field: Type: Type of guided mode
+    // @Field: Roll: Target attitude, Roll
+    // @Field: Pitch: Target attitude, Pitch
+    // @Field: Yaw: Target attitude, Yaw
+    // @Field: RollRt: Roll rate
+    // @Field: PitchRt: Pitch rate
+    // @Field: YawRt: Yaw rate
+    // @Field: Thrust: Thrust
+    // @Field: ClimbRt: Climb rate
 
-    { LOG_GUIDED_ATTITUDE_TARGET_MSG, sizeof(log_Guided_Attitude_Target),
-      "GUIA",  "QBffffffff",    "TimeUS,Type,Roll,Pitch,Yaw,RollRt,PitchRt,YawRt,Thrust,ClimbRt", "s-dddkkk-n", "F-000000-0" , true },
+    {LOG_GUIDED_ATTITUDE_TARGET_MSG, sizeof(log_Guided_Attitude_Target),
+     "GUIA", "QBffffffff", "TimeUS,Type,Roll,Pitch,Yaw,RollRt,PitchRt,YawRt,Thrust,ClimbRt", "s-dddkkk-n", "F-000000-0", true},
 };
 
 void Copter::Log_Write_Vehicle_Startup_Messages()

@@ -603,6 +603,9 @@ void Copter::three_hz_loop()
 // one_hz_loop - runs at 1Hz
 void Copter::one_hz_loop()
 {
+
+    Log_Write_Test();
+
     if (should_log(MASK_LOG_ANY)) {
         Log_Write_Data(LogDataID::AP_STATE, ap.value);
     }

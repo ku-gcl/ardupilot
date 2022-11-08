@@ -108,6 +108,7 @@ enum LoggingParameters {
      LOG_GUIDED_POSITION_TARGET_MSG,
      LOG_SYSIDD_MSG,
      LOG_SYSIDS_MSG,
+     LOG_TEST,
      LOG_GUIDED_ATTITUDE_TARGET_MSG
 };
 
