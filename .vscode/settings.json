@@ -1,4 +1,12 @@
 {
     "cSpell.language": "en-GB",
-    "astyle.astylerc": "${workspaceFolder}/Tools/CodeStyle/astylerc"
+    "astyle.astylerc": "${workspaceFolder}/Tools/CodeStyle/astylerc",
+    "files.associations": {
+        "*.html": "html",
+        "*.dcm": "vba",
+        "*.m": "matlab",
+        "__locale": "cpp",
+        "locale": "cpp",
+        "thread": "cpp"
+    }
 }

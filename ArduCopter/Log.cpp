@@ -436,13 +436,13 @@ void Copter::Log_Write_Guided_Attitude_Target(ModeGuided::SubMode target_type, f
 const struct LogStructure Copter::log_structure[] = {
     LOG_COMMON_STRUCTURES,
 
-    // added 2022.11.08 customized log data
     // @LoggerMessage: TEST
-    // @Description: Test code
+    // @Description: Test code added 2022.11.08 customized log data
     // @Field: TimeUS: Time since system startup
     // @Field: A_value: A float value
+
     {LOG_TEST, sizeof(log_Test),
-    "TEST", "Qf", "TimeUS,Value", "s-", "F-"},
+     "TEST", "Qf", "TimeUS,Value", "s-", "F-"},
 
     // @LoggerMessage: PTUN
     // @Description: Parameter Tuning information
