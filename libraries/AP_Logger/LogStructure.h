@@ -140,7 +140,7 @@ const struct MultiplierStructure log_Multipliers[] = {
 #include <AP_HAL_ChibiOS/LogStructure.h>
 #include <AP_RPM/LogStructure.h>
 #include <AC_Fence/LogStructure.h>
-#include <AP_Motors/LogStructure.h>
+#include <AP_Motors/LogStructure.h>     // added for my own log data
 
 // structure used to define logging format
 // It is packed on ChibiOS to save flash space; however, this causes problems
@@ -1287,6 +1287,7 @@ LOG_STRUCTURE_FROM_ESC_TELEM \
     { LOG_DSTL_MSG, sizeof(log_DSTL), \
       "DSTL", "QBfLLeccfeffff", "TimeUS,Stg,THdg,Lat,Lng,Alt,XT,Travel,L1I,Loiter,Des,P,I,D", "s??DUm--------", "F??000--------" , true }, \
 LOG_STRUCTURE_FROM_INERTIALSENSOR \
+LOG_STRUCTURE_MOTORS \    // added for my own log data
 LOG_STRUCTURE_FROM_DAL \
 LOG_STRUCTURE_FROM_NAVEKF2 \
 LOG_STRUCTURE_FROM_NAVEKF3 \
@@ -1388,6 +1389,7 @@ enum LogMessages : uint8_t {
 
     LOG_IDS_FROM_DAL,
     LOG_IDS_FROM_INERTIALSENSOR,
+    LOG_IDS_FROM_MOTORS,  // added for my own log data
 
     LOG_IDS_FROM_VISUALODOM,
     LOG_IDS_FROM_AVOIDANCE,
