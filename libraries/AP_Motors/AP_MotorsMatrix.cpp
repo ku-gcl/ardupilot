@@ -200,6 +200,14 @@ uint32_t AP_MotorsMatrix::get_motor_mask()
     return mask;
 }
 
+// return thrust value
+float AP_MotorsMatrix::return_thrust_value()
+{
+    float roll_thrust;     // roll thrust input value, +/- 1.0
+    roll_thrust = _roll_in;
+    return roll_thrust;
+}
+
 // output_armed - sends commands to the motors
 // includes new scaling stability patch
 void AP_MotorsMatrix::output_armed_stabilizing()

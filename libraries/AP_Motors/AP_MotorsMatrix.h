@@ -102,6 +102,9 @@ public:
     void add_motors_raw(const struct MotorDefRaw *motors, uint8_t num_motors);
 
 protected:
+    // return thrust value
+    float               return_thrust_value();
+
     // output - sends commands to the motors
     void                output_armed_stabilizing() override;
 
