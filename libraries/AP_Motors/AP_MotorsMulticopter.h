@@ -148,6 +148,9 @@ protected:
     // apply any thrust compensation for the frame
     virtual void        thrust_compensation(void) {}
 
+    // return thrust value
+    virtual void return_thrust_value() {}
+
     // output booster throttle, if any
     virtual void        output_boost_throttle(void);
 
