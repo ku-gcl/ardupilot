@@ -403,6 +403,21 @@ void AP_MotorsMulticopter::update_lift_max_from_batt_voltage()
     _lift_max = batt_voltage_filt * (1 - thrust_curve_expo) + thrust_curve_expo * batt_voltage_filt * batt_voltage_filt;
 }
 
+// 10hz logging of thrust
+void AP_MotorsMulticopter::Log_Write_Thrust()
+{
+    // TODO: define _roll_thrust
+    // TODO: Get roll_thrust value from AP_MotorsMatrix.cpp
+    // _roll_thust = return_thrust_value();
+    const struct log_Thrust pkt_thr
+    {
+        LOG_PACKET_HEADER_INIT(LOG_THRUST),
+        time_us         : AP_HAL::micros64(),
+        roll_thrust        : 1234,
+    };
+    AP::logger().WriteBlock(&pkt_thr, sizeof(pkt_thr));
+}
+
 // 10hz logging of voltage scaling and max trust
 void AP_MotorsMulticopter::Log_Write()
 {
