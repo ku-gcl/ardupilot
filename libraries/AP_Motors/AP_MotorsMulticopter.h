@@ -149,7 +149,7 @@ protected:
     virtual void        thrust_compensation(void) {}
 
     // return thrust value
-    virtual float return_thrust_value();
+    // float return_thrust_value();
 
     // output booster throttle, if any
     virtual void        output_boost_throttle(void);

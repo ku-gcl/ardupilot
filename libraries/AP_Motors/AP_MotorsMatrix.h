@@ -103,7 +103,7 @@ public:
 
 protected:
     // return thrust value
-    float               return_thrust_value() override;
+    float               return_thrust_value();
 
     // output - sends commands to the motors
     void                output_armed_stabilizing() override;
