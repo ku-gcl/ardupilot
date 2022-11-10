@@ -680,6 +680,10 @@ struct PACKED log_Thrust {
     LOG_PACKET_HEADER;
     uint64_t time_us;
     float   roll_thrust;
+    float roll_thrust;
+    float pitch_thrust;
+    float yaw_thrust;
+    float throttle_thrust;
 };
 
 struct PACKED log_MotBatt {
@@ -1339,7 +1343,7 @@ LOG_STRUCTURE_FROM_AIS \
     { LOG_MOTBATT_MSG, sizeof(log_MotBatt), \
       "MOTB", "QffffB",  "TimeUS,LiftMax,BatVolt,ThLimit,ThrAvMx,FailFlags", "s-----", "F-----" , true }, \
     { LOG_THRUST, sizeof(log_Thrust), \
-      "THR", "Qf",  "TimeUS,RollTh", "s-", "F-" , true }
+      "THR", "Qffff",  "TimeUS,InputRoll,InputPitch,InputYaw,InputThr", "s----", "F----" , true }
 
 // message types 0 to 63 reserved for vehicle specific use
 
