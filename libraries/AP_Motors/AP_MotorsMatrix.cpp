@@ -1356,12 +1356,12 @@ void AP_MotorsMatrix::thrust_compensation(void)
 }
 
 // return thrust value
-float AP_MotorsMatrix::return_thrust_value()
-{
-    float roll_thrust; // roll thrust input value, +/- 1.0
-    roll_thrust = _roll_in * 1;
-    return roll_thrust;
-}
+// float AP_MotorsMatrix::return_thrust_value()
+// {
+//     float roll_thrust; // roll thrust input value, +/- 1.0
+//     roll_thrust = _roll_in * 1;
+//     return roll_thrust;
+// }
 
 /*
   disable the use of motor torque to control yaw. Used when an

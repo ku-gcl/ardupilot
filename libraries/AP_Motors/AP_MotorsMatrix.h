@@ -128,7 +128,7 @@ protected:
     void                thrust_compensation(void) override;
 
     // return thrust value
-    float return_thrust_value() override;
+    // float return_thrust_value() override;
 
     const char*         _get_frame_string() const override { return _frame_class_string; }
     const char*         get_type_string() const override { return _frame_type_string; }
