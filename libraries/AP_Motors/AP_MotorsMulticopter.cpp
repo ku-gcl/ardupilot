@@ -407,17 +407,17 @@ void AP_MotorsMulticopter::update_lift_max_from_batt_voltage()
 void AP_MotorsMulticopter::Log_Write_Thrust()
 {
     float roll_thrust;     // roll thrust input value, +/- 1.0
-    float pitch_thrust;    // pitch thrust input value, +/- 1.0
-    float yaw_thrust;      // yaw thrust input value, +/- 1.0
-    float throttle_thrust; // throttle thrust input value, 0.0 - 1.0
+    // float pitch_thrust;    // pitch thrust input value, +/- 1.0
+    // float yaw_thrust;      // yaw thrust input value, +/- 1.0
+    // float throttle_thrust; // throttle thrust input value, 0.0 - 1.0
     // AP_MotorsMatrix.cpp 206
     // apply voltage and air pressure compensation
-    const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
-    roll_thrust = (_roll_in + _roll_in_ff) * compensation_gain;
-    pitch_thrust = (_pitch_in + _pitch_in_ff) * compensation_gain;
-    yaw_thrust = (_yaw_in + _yaw_in_ff) * compensation_gain;
-    throttle_thrust = get_throttle() * compensation_gain;
-    
+    // const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
+    // roll_thrust = (_roll_in + _roll_in_ff) * compensation_gain;
+    roll_thrust = 1.0;
+    // pitch_thrust = (_pitch_in + _pitch_in_ff) * compensation_gain;
+    // yaw_thrust = (_yaw_in + _yaw_in_ff) * compensation_gain;
+    // throttle_thrust = get_throttle() * compensation_gain;
     const struct log_Thrust pkt_thr
     {
         LOG_PACKET_HEADER_INIT(LOG_THRUST),
