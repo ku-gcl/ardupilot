@@ -422,7 +422,7 @@ void AP_MotorsMulticopter::Log_Write_Thrust()
     {
         LOG_PACKET_HEADER_INIT(LOG_THRUST),
         time_us         : AP_HAL::micros64(),
-        roll_thrust        : _roll_in,
+        roll_thrust        : roll_thrust,
     };
     AP::logger().WriteBlock(&pkt_thr, sizeof(pkt_thr));
 }
