@@ -408,11 +408,13 @@ void AP_MotorsMulticopter::Log_Write_Thrust()
 {
     // TODO: define _roll_thrust
     // TODO: Get roll_thrust value from AP_MotorsMatrix.cpp
+    float thrust_value;
+    thrust_value = return_thrust_value();
     const struct log_Thrust pkt_thr
     {
         LOG_PACKET_HEADER_INIT(LOG_THRUST),
         time_us         : AP_HAL::micros64(),
-        roll_thrust        : return_thrust_value(),
+        roll_thrust        : thrust_value,
     };
     AP::logger().WriteBlock(&pkt_thr, sizeof(pkt_thr));
 }
