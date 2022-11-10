@@ -412,9 +412,8 @@ void AP_MotorsMulticopter::Log_Write_Thrust()
     // float throttle_thrust; // throttle thrust input value, 0.0 - 1.0
     // AP_MotorsMatrix.cpp 206
     // apply voltage and air pressure compensation
-    // const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
-    // roll_thrust = (_roll_in + _roll_in_ff) * compensation_gain;
-    roll_thrust = 1.0;
+    const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
+    roll_thrust = (_roll_in + _roll_in_ff) * compensation_gain;
     // pitch_thrust = (_pitch_in + _pitch_in_ff) * compensation_gain;
     // yaw_thrust = (_yaw_in + _yaw_in_ff) * compensation_gain;
     // throttle_thrust = get_throttle() * compensation_gain;
