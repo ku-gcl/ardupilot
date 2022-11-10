@@ -679,7 +679,6 @@ struct PACKED log_Scripting {
 struct PACKED log_Thrust {
     LOG_PACKET_HEADER;
     uint64_t time_us;
-    float   roll_thrust;
     float roll_thrust;
     float pitch_thrust;
     float yaw_thrust;
