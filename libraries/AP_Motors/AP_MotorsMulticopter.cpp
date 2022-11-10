@@ -408,7 +408,7 @@ void AP_MotorsMulticopter::Log_Write_Thrust()
 {
     // TODO: define _roll_thrust
     // TODO: Get roll_thrust value from AP_MotorsMatrix.cpp
-    float thrust_value;
+    // float thrust_value;
     // thrust_value = return_thrust_value();
     const struct log_Thrust pkt_thr
     {
