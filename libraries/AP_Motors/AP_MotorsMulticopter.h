@@ -102,6 +102,9 @@ public:
     // 10hz logging of voltage scaling and max trust
     void                Log_Write() override;
 
+    // 10hz logging of thrust value
+    void Log_Write_Thrust();
+
     // Run arming checks
     bool arming_checks(size_t buflen, char *buffer) const override;
 

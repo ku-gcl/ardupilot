@@ -411,6 +411,32 @@ void AP_MotorsMulticopter::Log_Write()
     AP::logger().WriteBlock(&pkt_mot, sizeof(pkt_mot));
 }
 
+// 10hz logging of Thrust value
+void AP_MotorsMulticopter::Log_Write_Thrust()
+{
+    float roll_thrust;     // roll thrust input value, +/- 1.0
+    float pitch_thrust;    // pitch thrust input value, +/- 1.0
+    float yaw_thrust;      // yaw thrust input value, +/- 1.0
+    float throttle_thrust; // throttle thrust input value, 0.0 - 1.0
+    // AP_MotorsMatrix.cpp 206
+    // apply voltage and air pressure compensation
+    const float compensation_gain = get_compensation_gain(); // compensation for battery voltage and altitude
+    roll_thrust = (_roll_in + _roll_in_ff) * compensation_gain;
+    pitch_thrust = (_pitch_in + _pitch_in_ff) * compensation_gain;
+    yaw_thrust = (_yaw_in + _yaw_in_ff) * compensation_gain;
+    throttle_thrust = get_throttle() * compensation_gain;
+    const struct log_Thrust pkt_thr
+    {
+        LOG_PACKET_HEADER_INIT(LOG_THRUST),
+        time_us         : AP_HAL::micros64(),
+        roll_thrust     : roll_thrust,
+        pitch_thrust    : pitch_thrust,
+        yaw_thrust      : yaw_thrust,
+        throttle_thrust : throttle_thrust,
+    };
+    AP::logger().WriteBlock(&pkt_thr, sizeof(pkt_thr));
+}
+
 float AP_MotorsMulticopter::get_compensation_gain() const
 {
     // avoid divide by zero
