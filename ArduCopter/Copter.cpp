@@ -516,8 +516,6 @@ void Copter::loop_rate_logging()
     {
         AP::ins().Write_IMU();
     }
-    // 10Hz log of Thrust value
-    motors->Log_Write_Thrust();
 }
 
 // ten_hz_logging_loop
@@ -596,6 +594,8 @@ void Copter::twentyfive_hz_logging()
     {
         AP::ins().Write_IMU();
     }
+    // 10Hz log of Thrust value
+    motors->Log_Write_Thrust();
 
 #if MODE_AUTOROTATE_ENABLED == ENABLED
     if (should_log(MASK_LOG_ATTITUDE_MED) || should_log(MASK_LOG_ATTITUDE_FAST))
