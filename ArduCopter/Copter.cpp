@@ -541,8 +541,6 @@ void Copter::ten_hz_logging_loop()
     {
         motors->Log_Write();
     }
-    // 10Hz log of Thrust value
-    motors->Log_Write_Thrust();
     if (should_log(MASK_LOG_RCIN))
     {
         logger.Write_RCIN();
@@ -604,6 +602,8 @@ void Copter::twentyfive_hz_logging()
         g2.arot.Log_Write_Autorotation();
     }
 #endif
+    // 10Hz log of Thrust value
+    motors->Log_Write_Thrust();
 }
 
 // three_hz_loop - 3.3hz loop
