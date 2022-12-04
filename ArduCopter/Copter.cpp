@@ -516,6 +516,8 @@ void Copter::loop_rate_logging()
     {
         AP::ins().Write_IMU();
     }
+    // 400Hz log of Thrust value
+    motors->Log_Write_Thrust();
 }
 
 // ten_hz_logging_loop
@@ -602,8 +604,6 @@ void Copter::twentyfive_hz_logging()
         g2.arot.Log_Write_Autorotation();
     }
 #endif
-    // 10Hz log of Thrust value
-    motors->Log_Write_Thrust();
 }
 
 // three_hz_loop - 3.3hz loop
