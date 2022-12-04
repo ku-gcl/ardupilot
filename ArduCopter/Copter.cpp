@@ -541,6 +541,8 @@ void Copter::ten_hz_logging_loop()
     {
         motors->Log_Write();
     }
+    // 10Hz log of Thrust value
+    motors->Log_Write_Thrust();
     if (should_log(MASK_LOG_RCIN))
     {
         logger.Write_RCIN();
@@ -594,8 +596,6 @@ void Copter::twentyfive_hz_logging()
     {
         AP::ins().Write_IMU();
     }
-    // 10Hz log of Thrust value
-    motors->Log_Write_Thrust();
 
 #if MODE_AUTOROTATE_ENABLED == ENABLED
     if (should_log(MASK_LOG_ATTITUDE_MED) || should_log(MASK_LOG_ATTITUDE_FAST))
