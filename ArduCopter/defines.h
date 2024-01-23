@@ -95,6 +95,7 @@ enum DevOptions {
     DevOptionVFR_HUDRelativeAlt = 2,
 };
 
+// added LOG_TEST 2022.11.08 customized log data
 //  Logging parameters - only 32 messages are available to the vehicle here.
 enum LoggingParameters {
      LOG_CONTROL_TUNING_MSG,
@@ -108,6 +109,7 @@ enum LoggingParameters {
      LOG_GUIDED_POSITION_TARGET_MSG,
      LOG_SYSIDD_MSG,
      LOG_SYSIDS_MSG,
+     LOG_TEST,
      LOG_GUIDED_ATTITUDE_TARGET_MSG
 };
 

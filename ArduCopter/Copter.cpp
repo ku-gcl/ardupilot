@@ -522,6 +522,9 @@ void Copter::ten_hz_logging_loop()
     if (should_log(MASK_LOG_MOTBATT)) {
         motors->Log_Write();
     }
+    // 10Hz log of Thrust value
+    motors->Log_Write_Thrust();
+
     if (should_log(MASK_LOG_RCIN)) {
         logger.Write_RCIN();
         if (rssi.enabled()) {
@@ -603,6 +606,9 @@ void Copter::three_hz_loop()
 // one_hz_loop - runs at 1Hz
 void Copter::one_hz_loop()
 {
+    // here is my original code
+    Log_Write_Test();
+
     if (should_log(MASK_LOG_ANY)) {
         Log_Write_Data(LogDataID::AP_STATE, ap.value);
     }

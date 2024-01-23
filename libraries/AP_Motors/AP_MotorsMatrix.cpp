@@ -200,6 +200,7 @@ uint32_t AP_MotorsMatrix::get_motor_mask()
     return mask;
 }
 
+
 // output_armed - sends commands to the motors
 // includes new scaling stability patch
 void AP_MotorsMatrix::output_armed_stabilizing()
@@ -1353,6 +1354,14 @@ void AP_MotorsMatrix::thrust_compensation(void)
         _thrust_compensation_callback(_thrust_rpyt_out, AP_MOTORS_MAX_NUM_MOTORS);
     }
 }
+
+// return thrust value
+// float AP_MotorsMatrix::return_thrust_value()
+// {
+//     float roll_thrust; // roll thrust input value, +/- 1.0
+//     roll_thrust = _roll_in * 1;
+//     return roll_thrust;
+// }
 
 /*
   disable the use of motor torque to control yaw. Used when an
